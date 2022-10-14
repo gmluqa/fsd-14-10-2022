@@ -11,6 +11,7 @@ const showResult = result => console.log(result)
 // accessing json objects propeties with .
 const extractData = result => result.data.results
 const clearApp = res => { app.innerHTML = ""; return res }
+// no {} so that it returns (a promise)
 const loadCharacters = page =>
     axios
         .get(url + page)
