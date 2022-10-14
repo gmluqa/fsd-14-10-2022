@@ -1,11 +1,23 @@
 const app = document.getElementById("app")
-const url = "https://rickandmortyapi.com/api/character"
-
+var page = 1
+const url = "https://rickandmortyapi.com/api/character?page="
+const nextButton = document.getElementById('next')
+    .addEventListener('click', () => {
+        page++
+        loadCharacters(page)
+    })
 
 const showResult = result => console.log(result)
 // accessing json objects propeties with .
 const extractData = result => result.data.results
-const clearApp = (res) => { app.innerHTML = ""; return res }
+const clearApp = res => { app.innerHTML = ""; return res }
+const loadCharacters = page =>
+    axios
+        .get(url + page)
+        .then(extractData)
+        .then(clearApp)
+        .then(renderResult)
+
 
 const renderResult = characters => {
     characters.map((character) => {
@@ -19,8 +31,5 @@ const renderResult = characters => {
 
 app.innerHTML = "datos cargando..."
 
-axios
-    .get(url)
-    .then(extractData)
-    .then(clearApp)
-    .then(renderResult)
+loadCharacters(1)
+    .then()
