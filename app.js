@@ -5,14 +5,15 @@ const url = "https://rickandmortyapi.com/api/character"
 const showResult = result => console.log(result)
 // accessing json objects propeties with .
 const extractData = result => result.data.results
-const clearApp = () => app.innerHTML = ""
+const clearApp = (res) => { app.innerHTML = ""; return res }
 
 const renderResult = characters => {
-    clearApp()
-    characters.map(() => {
+    characters.map((character) => {
+        console.log(character)
         // document.createElement('button')(app)
-        let button = app.appendChild(document.createElement("button"))
-        app.appendChild(button)
+        let div = document.createElement("div")
+        div.innerHTML = character.name
+        app.appendChild(div)
     })
 }
 
@@ -21,4 +22,5 @@ app.innerHTML = "datos cargando..."
 axios
     .get(url)
     .then(extractData)
+    .then(clearApp)
     .then(renderResult)
